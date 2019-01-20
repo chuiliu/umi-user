@@ -1,12 +1,24 @@
-import styles from './index.css';
+import withRouter from 'umi/withRouter';
+import Header from './Header';
+import styles from './index.less';
 
-function BasicLayout(props) {
+function BasicLayout({ children, location }) {
+  const { pathname } = location;
+
+  if (pathname === '/login') {
+    return <div>login page</div>
+  }
+
   return (
     <div className={styles.normal}>
-      <h1 className={styles.title}>Yay! Welcome to umi!</h1>
-      { props.children }
+      <Header location={location} />
+      <div className={styles.content}>
+        <div className={styles.main}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default BasicLayout;
+export default withRouter(BasicLayout);
